@@ -19,4 +19,5 @@
 - 当document.compatMode为BackCompat时，浏览器客户区宽度为： document.body.clientWidth;
 
 - 当document.compatMode为CSS<sub>1</sub>Compat时，浏览器客户区宽度为： document.documentElement.clientWidth.
+
 > 浏览器客户区高度clientHeight、可视区宽度clientWidth、滚动条高度scrollHeight、滚动条的scrollLeft、滚动条的scrollTop都是类似的
