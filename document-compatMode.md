@@ -1,4 +1,4 @@
-> 今天boss通知我以后接手广告业务的展示和打点，项目中有个document.compatMode方法，故在此处对其方法在这里进行记录。
+> 工作中遇到个document.compatMode方法，故在此处对其方法在这里进行记录。
 
 1.document.compatMode返回的是当前浏览器解析html文件所用的模式；这个方法主要用在浏览器兼容方面。
 
