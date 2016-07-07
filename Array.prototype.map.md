@@ -39,6 +39,44 @@ map函数的调用并不改变数组。（尽管如果调用callback,也许会�
   var numbers  = [1,4,9];
   var roots = numbers.map(Math.sqrt);
   //roots=> [1,2,3] ; number => [1,4,9]
+  
+  
+### 常规性地使用map函数
+
+>以下的例子显示了怎么使用map函数将一个字符串转变成一个字节数组，这些子节代表了各个字符的ASCII
+编码值。
+
+  var map = Array.prototype.map;
+  var a = map.call('Hello World', function(x){ return x.charCodeAt(0);});
+  // a now equals [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]
+  
+### 使用map函数 querySelectorAll
+
+>以下的例子显示了怎么将一个由querySelectorAll选择出来的对象集合进行循环操作。
+在这个例子中，我们在屏幕上得到所有已勾选的选项值和打印在console中的选项。
+
+  var elems = document.querySelectorAll('select options:checked');
+  var values = Array.prototye.map.call(elems, function(obj) {
+    return obj.value;
+  });
+  
+### 使用map函数来反转一个字符串
+
+  var str = '12345';
+  Array.prototype.map.call(str, function(x) {
+    return x;
+  }).reverse().join('');
+  //输出：'54321'
+  //额外的收获是：可以使用'==='来检测原始的字符串 是否是一个回文 
+  
+###map的妙用
+
+>通常使用callback都只有一个参数（这个元素被反复使用）。特定的函数也是通常只有一个参数，
+即使他们带有额外的可选参数。这些习惯也许会导致令人疑惑的行为。
+
+  //假设
+  ['1','2','3'].map(parseInt);
+
 
 
 
