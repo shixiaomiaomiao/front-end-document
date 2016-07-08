@@ -70,13 +70,68 @@ map函数的调用并不改变数组。（尽管如果调用callback,也许会�
   //额外的收获是：可以使用'==='来检测原始的字符串 是否是一个回文 
   
 ###map的妙用
+> [参考的blog](http://www.wirfs-brock.com/allen/posts/166)
 
 >通常使用callback都只有一个参数（这个元素被反复使用）。特定的函数也是通常只有一个参数，
 即使他们带有额外的可选参数。这些习惯也许会导致令人疑惑的行为。
 
   //假设
   ['1','2','3'].map(parseInt);
+  //也许有人会预期结果为［1，2，3］
+  //但实际结果是：［1, NaN, NaN］
+  
+  //parseInt经常被传入一个参数来使用，但其他它有两个参数。
+  //第一个参数是一个表达式，第二个是基数。
+  //对于回调函数callback来说，Array.prototype.map传入3个参数：元素，索引值，数组
+  //第三个参数将被parseInt忽略，但第二个参数不会被忽略。
+  //因此也许有些疑惑，查看之前的blog获取更多的细节。
+  
+  function returnInt(element) {
+    return parseInt(element, 10);
+  }
+  ['1', '2', '3'].map(returnInt); //[1,2,3]
+  //实际的结果就是数字数组（正如预期的）
+  
+  //一个更加简单的方法获取以上结果，避免“获取错误”
+  ['1', '2', '3'].map(Number); //[1, 2, 3]
+  
+### Polyfill
+> map函数是在第5版的时候被加进ECMA-262标准的，所以它不是在所有的标准中都有。
+你可以在你的脚本中的开始部分插入以下的代码，从而在不支持map函数的环境中实现map函数。
+这个算法其实就是第5版的ECMA-262标准中实现的算法，假设Object，TypeError和Array有它们的
+起始值，并且callback.call等价于起始值的Function.prototype.call方法。
 
+  //ECMA-262的生产步骤，第5版，15.4.4.19
+  //参考：http://es5.github.io/#x15.4.4.19
+  if(!Array.prototype.map) {
+    Array.prototype.map = function(callback,thisArg) ｛
+      
+      var T, A, K;
+      if (this == null) {
+        throw new TypeError(' this is null or not defined');
+      }
+      }
+      
+      //第一步:让0作为调用Object函数的结果值，将this作为参数传入
+      var 0 = Object(this);
+      
+      //第二步:让长度值作为调用0的内部Get方法的结果值，传入的参数为“length”
+      //第三步:让长度值变成32位整型。
+      var len = 0.length >>> 0;
+      
+      //第四步:如果callback不可调用，则抛出一个类型错误。
+      //具体参见:http://es5.github.com/#x9.11
+      if (typeof callback !== 'function') {
+      throw new TypeError(callback + 'is not a function');
+      }
+      
+      //第五步:如果thisArg被提供了，就是T值等于thisArg,否则让T值等于undefined.
+      if(arguments.length > 1) {
+        T ＝ thisArg;
+      }
+      
+      //第六步:让A值
+    ｝
 
 
 
