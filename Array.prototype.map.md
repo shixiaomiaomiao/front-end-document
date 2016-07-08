@@ -112,12 +112,12 @@ map函数的调用并不改变数组。（尽管如果调用callback,也许会�
       }
       }
       
-      //第一步:让0作为调用Object函数的结果值，将this作为参数传入
-      var 0 = Object(this);
+      //第一步:让O(大欧)作为调用Object函数的结果值，将this作为参数传入
+      var O = Object(this);
       
       //第二步:让长度值作为调用0的内部Get方法的结果值，传入的参数为“length”
       //第三步:让长度值变成32位整型。
-      var len = 0.length >>> 0;
+      var len = O.length >>> 0;
       
       //第四步:如果callback不可调用，则抛出一个类型错误。
       //具体参见:http://es5.github.com/#x9.11
@@ -130,7 +130,19 @@ map函数的调用并不改变数组。（尽管如果调用callback,也许会�
         T ＝ thisArg;
       }
       
-      //第六步:让A值
+      //第六步:由长度值通过内建函数Array方法构建一个长度为len的新数组，并将结果传给A.
+      A = new Array(len);
+      
+      //第七步:将k值赋为0
+      k = 0;
+      
+      //第八步:当k<len的时候，循环重复。
+      while(k < len) {
+        var kValue, mappedValue；
+        
+        
+      }
+      
     ｝
 
 
