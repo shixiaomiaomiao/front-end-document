@@ -36,9 +36,9 @@ map函数的调用并不改变数组。（尽管如果调用callback,也许会�
 
 >以下的代码将选取了一个数字数组，并且创建了一个包含第一个数组中的平方根的新数组。
   
-  var numbers  = [1,4,9];
-  var roots = numbers.map(Math.sqrt);
-  //roots=> [1,2,3] ; number => [1,4,9]
+    var numbers  = [1,4,9];
+    var roots = numbers.map(Math.sqrt);
+    //roots=> [1,2,3] ; number => [1,4,9]
   
   
 ### 常规性地使用map函数
@@ -46,28 +46,28 @@ map函数的调用并不改变数组。（尽管如果调用callback,也许会�
 >以下的例子显示了怎么使用map函数将一个字符串转变成一个字节数组，这些子节代表了各个字符的ASCII
 编码值。
 
-  var map = Array.prototype.map;
-  var a = map.call('Hello World', function(x){ return x.charCodeAt(0);});
-  // a now equals [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]
+    var map = Array.prototype.map;
+    var a = map.call('Hello World', function(x){ return x.charCodeAt(0);});
+    // a now equals [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]
   
 ### 使用map函数 querySelectorAll
 
 >以下的例子显示了怎么将一个由querySelectorAll选择出来的对象集合进行循环操作。
 在这个例子中，我们在屏幕上得到所有已勾选的选项值和打印在console中的选项。
 
-  var elems = document.querySelectorAll('select options:checked');
-  var values = Array.prototye.map.call(elems, function(obj) {
-    return obj.value;
-  });
+    var elems = document.querySelectorAll('select options:checked');
+    var values = Array.prototye.map.call(elems, function(obj) {
+      return obj.value;
+    });
   
 ### 使用map函数来反转一个字符串
 
-  var str = '12345';
-  Array.prototype.map.call(str, function(x) {
-    return x;
-  }).reverse().join('');
-  //输出：'54321'
-  //额外的收获是：可以使用'==='来检测原始的字符串 是否是一个回文 
+    var str = '12345';
+    Array.prototype.map.call(str, function(x) {
+      return x;
+    }).reverse().join('');
+    //输出：'54321'
+    //额外的收获是：可以使用'==='来检测原始的字符串 是否是一个回文 
   
 ###map的妙用
 > [参考的blog](http://www.wirfs-brock.com/allen/posts/166)
@@ -75,25 +75,25 @@ map函数的调用并不改变数组。（尽管如果调用callback,也许会�
 >通常使用callback都只有一个参数（这个元素被反复使用）。特定的函数也是通常只有一个参数，
 即使他们带有额外的可选参数。这些习惯也许会导致令人疑惑的行为。
 
-  //假设
-  ['1','2','3'].map(parseInt);
-  //也许有人会预期结果为［1，2，3］
-  //但实际结果是：［1, NaN, NaN］
-  
-  //parseInt经常被传入一个参数来使用，但其他它有两个参数。
-  //第一个参数是一个表达式，第二个是基数。
-  //对于回调函数callback来说，Array.prototype.map传入3个参数：元素，索引值，数组
-  //第三个参数将被parseInt忽略，但第二个参数不会被忽略。
-  //因此也许有些疑惑，查看之前的blog获取更多的细节。
-  
-  function returnInt(element) {
-    return parseInt(element, 10);
-  }
-  ['1', '2', '3'].map(returnInt); //[1,2,3]
-  //实际的结果就是数字数组（正如预期的）
-  
-  //一个更加简单的方法获取以上结果，避免“获取错误”
-  ['1', '2', '3'].map(Number); //[1, 2, 3]
+    //假设
+    ['1','2','3'].map(parseInt);
+    //也许有人会预期结果为［1，2，3］
+    //但实际结果是：［1, NaN, NaN］
+    
+    //parseInt经常被传入一个参数来使用，但其他它有两个参数。
+    //第一个参数是一个表达式，第二个是基数。
+    //对于回调函数callback来说，Array.prototype.map传入3个参数：元素，索引值，数组
+    //第三个参数将被parseInt忽略，但第二个参数不会被忽略。
+    //因此也许有些疑惑，查看之前的blog获取更多的细节。
+    
+    function returnInt(element) {
+      return parseInt(element, 10);
+    }
+    ['1', '2', '3'].map(returnInt); //[1,2,3]
+    //实际的结果就是数字数组（正如预期的）
+    
+    //一个更加简单的方法获取以上结果，避免“获取错误”
+    ['1', '2', '3'].map(Number); //[1, 2, 3]
   
 ### Polyfill
 > map函数是在第5版的时候被加进ECMA-262标准的，所以它不是在所有的标准中都有。
@@ -101,11 +101,11 @@ map函数的调用并不改变数组。（尽管如果调用callback,也许会�
 这个算法其实就是第5版的ECMA-262标准中实现的算法，假设Object，TypeError和Array有它们的
 起始值，并且callback.call等价于起始值的Function.prototype.call方法。
 
-  //ECMA-262的生产步骤，第5版，15.4.4.19
-  //参考：http://es5.github.io/#x15.4.4.19
-  if(!Array.prototype.map) {
-    Array.prototype.map = function(callback,thisArg) ｛
-      
+    //ECMA-262的生产步骤，第5版，15.4.4.19
+    //参考：http://es5.github.io/#x15.4.4.19
+    if(!Array.prototype.map) {
+      Array.prototype.map = function(callback,thisArg) ｛
+        
       var T, A, K;
       if (this == null) {
         throw new TypeError(' this is null or not defined');
