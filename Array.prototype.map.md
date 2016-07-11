@@ -106,45 +106,78 @@ map函数的调用并不改变数组。（尽管如果调用callback,也许会�
     if(!Array.prototype.map) {
       Array.prototype.map = function(callback,thisArg) ｛
         
-      var T, A, K;
-      if (this == null) {
-        throw new TypeError(' this is null or not defined');
-      }
-      }
+        var T, A, K;
+        if (this == null) {
+          throw new TypeError(' this is null or not defined');
+        }
+        }
       
-      //第一步:让O(大欧)作为调用Object函数的结果值，将this作为参数传入
-      var O = Object(this);
-      
-      //第二步:让长度值作为调用0的内部Get方法的结果值，传入的参数为“length”
-      //第三步:让长度值变成32位整型。
-      var len = O.length >>> 0;
-      
-      //第四步:如果callback不可调用，则抛出一个类型错误。
-      //具体参见:http://es5.github.com/#x9.11
-      if (typeof callback !== 'function') {
-      throw new TypeError(callback + 'is not a function');
-      }
-      
-      //第五步:如果thisArg被提供了，就是T值等于thisArg,否则让T值等于undefined.
-      if(arguments.length > 1) {
-        T ＝ thisArg;
-      }
-      
-      //第六步:由长度值通过内建函数Array方法构建一个长度为len的新数组，并将结果传给A.
-      A = new Array(len);
-      
-      //第七步:将k值赋为0
-      k = 0;
-      
-      //第八步:当k<len的时候，循环重复。
-      while(k < len) {
-        var kValue, mappedValue；
+        //第一步:让O(大欧)作为调用Object函数的结果值，将this作为参数传入
+        var O = Object(this);
         
+        //第二步:让长度值作为调用O的内部Get方法的结果值，传入的参数为“length”
+        //第三步:让长度值变成32位整型。
+        var len = O.length >>> 0;
         
-      }
+        //第四步:如果callback不可调用，则抛出一个类型错误。
+        //具体参见:http://es5.github.com/#x9.11
+        if (typeof callback !== 'function') {
+        throw new TypeError(callback + 'is not a function');
+        }
+        
+        //第五步:如果thisArg被提供了，就是T值等于thisArg,否则让T值等于undefined.
+        if(arguments.length > 1) {
+          T ＝ thisArg;
+        }
+        
+        //第六步:由长度值通过内建函数Array方法构建一个长度为len的新数组，并将结果传给A.
+        A = new Array(len);
+        
+        //第七步:将k值赋为0
+        k = 0;
+        
+        //第八步:当k<len的时候，循环重复。
+        while(k < len) {
+          var kValue, mappedValue；
+          
+            // a. 将Pk作为k的string值
+            // 这是在操作符中 的左式操作符 的隐士作用
+            // b. 将kPresent作为O的hasProperty内部方法的,以Pk作为参数的 结果值。
+            // 这个步骤可以和 c步骤结合
+            // c. 如果kPresent是true, 则
+            if（k in O）{
+              // i. 让kValue作为O的Get内部方法的，以Pk作为参数的 结果值。
+              kValue = O[k];
+            }
+              // ii.让mappedValue作为Callback的调用call函数的结果值，让T以this值传入，
+              // 参数列表包含kValue,k和O
+              mappedValue ＝ callback.call（T, kValue,k,O);
+              
+              // iii.调用自定义的内部函数A,其中参数为Pk, 属性描述符
+              //｛Value: mappedValue,
+              //  Writable: true,
+              //  Enumerable:true,
+              //  Configurable: true
+              //  ｝
+              //  和false.
+              
+              //在支持Object.defineProperty方法的浏览器中，使用如下方法：
+              // Object.defineProperty(A, K, {
+              // value: mappedValue,
+              // writable: true,
+              // enuerable: true,
+              // configurable: true
+              //});
+              
+              // 对于支持性很好的浏览器使用如下代码：
+              A[k] = mappedValue；
+        }
+        // d.让k自加1
+        k++;
+      ｝
       
-    ｝
-
-
+      // 9.返回A
+      return A;
+    };
 
 
