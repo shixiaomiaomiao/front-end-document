@@ -16,7 +16,8 @@ localStorage与sessionStorage唯一的区别在于：存储在localStorage中的
 ###例子
 > 以下的代码片段获取了当前域里的[Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage)对象，
 并且使用[Storage.setItem()](https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem)方法将一个数据加入进去。
-    localStorage.setItem('myCat', 'Tom');
+    
+        localStorage.setItem('myCat', 'Tom');
     
 #####注意：请参见[如何使用Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API)来查看完整的例子。
 
