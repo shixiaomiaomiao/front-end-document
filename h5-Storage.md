@@ -35,33 +35,33 @@ Web Storage API的Storage接口对于特殊的域来说可以获取session stora
 - 如果不包含，我们可以使用另一个函数:populateStorage(),这个函数是先用localStorage.setItem()方法
 来设置item值，然后运行setStyles()函数。
 
-    if(!localStorage.getItem('bgcolor')) {
-      populateStorage();
-    } else {
-      setStyles();
-    }
+        if(!localStorage.getItem('bgcolor')) {
+          populateStorage();
+        } else {
+          setStyles();
+        }
     
-    function populateStorage() {
-      localStorage.setItem('bgcolor', document.getElementById('bgcolor').value);
-      localStorage.setItem('font', document.getElementById('font').value);
-      localStorage.setItem('image', document.getElementById('image').value);
-      
-      setStyles();
-    }
+        function populateStorage() {
+          localStorage.setItem('bgcolor', document.getElementById('bgcolor').value);
+          localStorage.setItem('font', document.getElementById('font').value);
+          localStorage.setItem('image', document.getElementById('image').value);
+          
+          setStyles();
+        }
     
-    function setStyles() {
-      var currentColor = localStorage.getItem('bgcolor');
-      var currentFont = localStorage.getItem('font');
-      var currentImage = localStorage.getItem('image');
-      
-      document.getElementById('bgcolor').value = currentColor;
-      document.getElementById('font').value = currentFont;
-      document.getElementById('image').value = currentImage;
-      
-      htmlElem.style.backgroundColor = '#' + currentColor;
-      pElem.style.fontFamily = currentFont;
-      imgElem.setAttribute('src', currentImage);
-    }
+        function setStyles() {
+          var currentColor = localStorage.getItem('bgcolor');
+          var currentFont = localStorage.getItem('font');
+          var currentImage = localStorage.getItem('image');
+          
+          document.getElementById('bgcolor').value = currentColor;
+          document.getElementById('font').value = currentFont;
+          document.getElementById('image').value = currentImage;
+          
+          htmlElem.style.backgroundColor = '#' + currentColor;
+          pElem.style.fontFamily = currentFont;
+          imgElem.setAttribute('src', currentImage);
+        }
     
 ##### 注意：想看以上代码完整的工作例子，请见[Web Storage Demo](https://github.com/mdn/web-storage-demo);
 
