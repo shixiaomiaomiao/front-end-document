@@ -46,4 +46,41 @@ reduce对于数组中的每个元素都执行callback 函数，包括空缺值�
     
     // map/reduce; 更好的解决方法，对于空数组也适用
     [{x:22}, {x: 42}].map(el => el.x)
-                     .reduce(callback2, 0);  // ????
+                     .reduce(callback2, 0);  // 42
+                     
+### reduce怎样工作
+> 试想一下以下的reduce的使用流程
+
+        [0,1,2,3,4].reduce(function(previousValue,currentValue, currentIndex,arr){
+        return previousValue + currentValue;
+        })
+        // 10
+这个callback函数将会被执行4次，每次执行的参数和返回值如下所示：
+
+你也可以提供一个[箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+来代替完整的函数，以下的代码将会产生和上面代码一样的效果。
+
+        [0,1,2,3,4].reduce((prev, curr) => prev + curr);
+如果你提供一个初始值作为reduce函数的第二个参数，结果将会看起来如下所示：
+        [0,1,2,3,4].reduce((previousValue, currentValue, currentIndex, array) => {
+        return previousValue + currentValue;
+        },10);
+        // 20
+        
+### 例子
+> 一个数组所有元素的和
+        
+        var total = [0,1,2,3].reduce(function(a,b) {
+         return a+b;
+        },0);
+        // 6
+用箭头函数写法如下：
+
+        var total = [0,1,2,3].reduce((acc,cur)=>{return acc+cur;},0);
+将一个数组扁平化处理：
+
+        var flattened = [[0,1],[2,3],[4,5]].reduce(function(a,b) {
+            return a.concat(b);
+        },[]);
+        // [0,1,2,3,4,5]
+    
