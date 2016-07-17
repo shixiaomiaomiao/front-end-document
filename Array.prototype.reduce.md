@@ -84,3 +84,37 @@ reduce对于数组中的每个元素都执行callback 函数，包括空缺值�
         },[]);
         // [0,1,2,3,4,5]
     
+### Polyfill 
+> Array.prototype.reduce在ECMA-262标准的第五版本中被加进；所以它不是在所有所准下都适用。
+你可以在你的脚本中注入以下代码，来确保你能在不支持reduce的应用中使用reduce方法。
+
+        // ECMA-262的生产步骤，第5版本， 15.4.4.21
+        // 参考：http://es5.github.io/#x15.4.4.21
+        if(!Array.prototype.reduce) {
+            'use strict' 
+            if(this == null) {
+              throw new TypeError('Array.prototype.reduce called on null or undefined');
+            }
+            if(typeof callback !== 'function') {
+                throw new TypeError(callback + ' is not a function');
+            }
+            var t = Object(this), len = t.length >>> 0, k = 0, value;
+            if(arguments.length == 2) {
+                value = arguments[1];
+            } else {
+                while(k < len && !(k in t)) {
+                    k++;
+                }
+                if(k >= len) {
+                    throw new TypeError('Reduce of empty array with no initial value');
+                }
+                value = t[k++];
+            }
+            for( ; k < len; k++) {
+                if(k in t) {
+                    value = callback(value, t[k], k, t);
+                }
+            }
+            return value;
+        }
+        
