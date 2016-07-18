@@ -118,3 +118,7 @@ reduce对于数组中的每个元素都执行callback 函数，包括空缺值�
             return value;
         }
         
+####Q1: len = t.length >>> 0 ??
+###A : 
+> 参考：https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Unsigned_right_shift
+>>> 符号表示0填充右移
