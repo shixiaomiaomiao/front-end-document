@@ -9,6 +9,7 @@ Web Storage API的Storage接口对于特殊的域来说可以获取session stora
 
 ###属性
 - Storage.length (只读)
+
 >  返回值为存储在Storage对象中的数据的个数的整数。
 
 ###方法
