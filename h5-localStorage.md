@@ -19,5 +19,5 @@ localStorage与sessionStorage唯一的区别在于：存储在localStorage中的
     
         localStorage.setItem('myCat', 'Tom');
     
-#####注意：请参见[如何使用Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API)来查看完整的例子。
+#####注意：请参见[如何使用Web Storage API](https://github.com/shixiaomiaomiao/front-end-document/blob/master/h5-Storage.md)来查看完整的例子。
 
